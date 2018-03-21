@@ -1,7 +1,9 @@
 /*
  * Create a list that holds all of your cards
  */
-
+let card = document.getElementsByClassName("card");
+let cards = [...card];
+const deck = document.querySelector(".deck");
 
 /*
  * Display the cards on the page
@@ -33,18 +35,33 @@ function addClickEventToLists() {
         }
     }
 //display the card's symbol (put this functionality in another function that you call from this one)
-let displayCard = function () {
+function displayCard() {
     this.classList.toggle("show");
     this.classList.toggle("match");
-};
+}
+
+function addShuffledCards(){
+    let shuffledCards = shuffle(cards);
+    for (let i= 0; i < shuffledCards.length; i++){
+        [].forEach.call(shuffledCards, function(item){
+            deck.appendChild(item);
+        });
+    }
+}
+
+function startGame(){
+    addClickEventToLists();
+    addShuffledCards();
+}
+
+window.onload = startGame();
 
 
-addClickEventToLists();
 
 
 /*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
+ * DONE set up the event listener for a card. If a card is clicked:
+ *  DONE - display the card's symbol (put this functionality in another function that you call from this one)
  *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
