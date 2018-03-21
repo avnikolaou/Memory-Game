@@ -25,6 +25,22 @@ function shuffle(array) {
     return array;
 }
 
+//set up the event listener for a card. If a card is clicked:
+function addClickEventToLists() {
+    let lists = document.getElementsByTagName("li");
+    for (let i = 0; i < lists.length; i++) {
+        lists[i].addEventListener("click",  displayCard)
+        }
+    }
+//display the card's symbol (put this functionality in another function that you call from this one)
+let displayCard = function () {
+    this.classList.toggle("show");
+    this.classList.toggle("match");
+};
+
+
+addClickEventToLists();
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
