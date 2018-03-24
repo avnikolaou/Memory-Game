@@ -29,9 +29,8 @@ function shuffle(array) {
 
 //set up the event listener for a card. If a card is clicked:
 function addClickEventToLists() {
-    let lists = document.getElementsByClassName("card");
-    for (let i = 0; i < lists.length; i++) {
-        lists[i].addEventListener("click",  displayCard)
+    for (let i = 0; i < card.length; i++) {
+        card[i].addEventListener("click",  displayCard)
         }
     }
 
@@ -78,7 +77,7 @@ function cardsAreDifferent() {
     }
 }
 
-function addShuffledCards(){
+function ShuffledCards(){
     let shuffledCards = shuffle(cards);
     for (let i= 0; i < shuffledCards.length; i++){
         [].forEach.call(shuffledCards, function(item){
@@ -89,7 +88,16 @@ function addShuffledCards(){
 
 function startGame(){
     addClickEventToLists();
-    //addShuffledCards();
+    //ShuffledCards();
+}
+
+function restartGame(){
+    for (let i = 0; i < card.length; i++) {
+        card[i].classList.remove("open");
+        card[i].classList.remove("show");
+        card[i].classList.remove("match");
+    }
+    //ShuffledCards()
 }
 
 window.onload = startGame();
