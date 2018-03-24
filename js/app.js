@@ -2,9 +2,13 @@
  * Create a list that holds all of your cards
  */
 const card = document.getElementsByClassName("card");
-let cards = [...card];
 const deck = document.querySelector(".deck");
+let cards = [...card];
 let openedCards = [];
+let counter = 0;
+// moves = document.getElementsByClassName('moves')[0].innerText;
+
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -75,6 +79,7 @@ function cardsAreDifferent() {
         }
         openedCards = [];
     }
+    incrementMoveCounter();
 }
 
 function ShuffledCards(){
@@ -87,12 +92,14 @@ function ShuffledCards(){
 }
 
 function startGame(){
+    document.getElementsByClassName('moves')[0].innerText = 0;
     ShuffledCards();
     showAllCards();
     setTimeout(hideAllCards, 10000);
 }
 
 function restartGame(){
+    counter = 0;
     for (let i = 0; i < card.length; i++) {
         card[i].classList.remove("open");
         card[i].classList.remove("show");
@@ -105,6 +112,7 @@ function showAllCards() {
     for (let i = 0; i < card.length; i++) {
         card[i].classList.add("open");
         card[i].classList.add("show");
+        card[i].classList.remove("match");
     }
 }
 
@@ -114,6 +122,12 @@ function hideAllCards() {
         card[i].classList.remove("show");
     }
 }
+
+function incrementMoveCounter() {
+    counter++;
+    document.getElementsByClassName('moves')[0].innerText = counter;
+}
+
 
 addClickEventToLists();
 
