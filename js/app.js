@@ -39,15 +39,15 @@ function addClickEventToLists() {
 function displayCard() {
     this.classList.toggle("show");
     this.classList.toggle("open");
-    addCardToOpenCards2(this);
-    addCardToOpenCards();
+    addCardToOpenCards(this);
+    checkOpenedCards();
 }
 
-function addCardToOpenCards2(element) {
+function addCardToOpenCards(element) {
     openedCards.push(element);
 }
 
-function addCardToOpenCards() {
+function checkOpenedCards() {
     console.log("length: " + openedCards.length);
     if (openedCards.length === 2) {
         if(openedCards[0].firstElementChild.className === openedCards[1].firstElementChild.className){
@@ -60,6 +60,10 @@ function addCardToOpenCards() {
 
 function cardsAreSame() {
     console.log("Same Cards");
+    for (let i = 0; i < openedCards.length; i++){
+        openedCards[i].classList.toggle("match");
+    }
+    openedCards = [];
 }
 
 function cardsAreDifferent() {
