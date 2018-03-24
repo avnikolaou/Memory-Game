@@ -4,7 +4,7 @@
 let card = document.getElementsByClassName("card");
 let cards = [...card];
 const deck = document.querySelector(".deck");
-
+let openedCards = [];
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -29,15 +29,37 @@ function shuffle(array) {
 
 //set up the event listener for a card. If a card is clicked:
 function addClickEventToLists() {
-    let lists = document.getElementsByTagName("li");
+    let lists = document.getElementsByClassName("card");
     for (let i = 0; i < lists.length; i++) {
         lists[i].addEventListener("click",  displayCard)
         }
     }
+
 //display the card's symbol (put this functionality in another function that you call from this one)
 function displayCard() {
     this.classList.toggle("show");
-    this.classList.toggle("match");
+    this.classList.toggle("open");
+    openedCards.push(this);
+    addCard();
+}
+
+function addCard() {
+    console.log("length: " + openedCards.length);
+    if (openedCards.length === 2) {
+        if(openedCards[0].firstElementChild.className === openedCards[1].firstElementChild.className){
+            cardsAreSame();
+        } else {
+            cardsNotSame();
+        }
+    }
+}
+
+function cardsAreSame() {
+    console.log("Same Cards");
+}
+
+function cardsNotSame() {
+    console.log("Different Cards");
 }
 
 function addShuffledCards(){
@@ -51,7 +73,7 @@ function addShuffledCards(){
 
 function startGame(){
     addClickEventToLists();
-    addShuffledCards();
+    //addShuffledCards();
 }
 
 window.onload = startGame();
