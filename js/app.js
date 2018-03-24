@@ -68,6 +68,14 @@ function cardsAreSame() {
 
 function cardsAreDifferent() {
     console.log("Different Cards");
+    setTimeout(closeCards, 3000);
+    function closeCards() {
+        for (let i = 0; i < openedCards.length; i++){
+            openedCards[i].classList.toggle("open");
+            openedCards[i].classList.toggle("show");
+        }
+        openedCards = [];
+    }
 }
 
 function addShuffledCards(){
