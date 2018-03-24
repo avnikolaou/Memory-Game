@@ -39,17 +39,21 @@ function addClickEventToLists() {
 function displayCard() {
     this.classList.toggle("show");
     this.classList.toggle("open");
-    openedCards.push(this);
-    addCard();
+    addCardToOpenCards2(this);
+    addCardToOpenCards();
 }
 
-function addCard() {
+function addCardToOpenCards2(element) {
+    openedCards.push(element);
+}
+
+function addCardToOpenCards() {
     console.log("length: " + openedCards.length);
     if (openedCards.length === 2) {
         if(openedCards[0].firstElementChild.className === openedCards[1].firstElementChild.className){
             cardsAreSame();
         } else {
-            cardsNotSame();
+            cardsAreDifferent();
         }
     }
 }
@@ -58,7 +62,7 @@ function cardsAreSame() {
     console.log("Same Cards");
 }
 
-function cardsNotSame() {
+function cardsAreDifferent() {
     console.log("Different Cards");
 }
 
@@ -84,8 +88,8 @@ window.onload = startGame();
 /*
  * DONE set up the event listener for a card. If a card is clicked:
  *  DONE - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
+ *  DONE - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  DONE - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
