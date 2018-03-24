@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-let card = document.getElementsByClassName("card");
+const card = document.getElementsByClassName("card");
 let cards = [...card];
 const deck = document.querySelector(".deck");
 let openedCards = [];
@@ -87,8 +87,9 @@ function ShuffledCards(){
 }
 
 function startGame(){
-    addClickEventToLists();
-    //ShuffledCards();
+    ShuffledCards();
+    showAllCards();
+    setTimeout(hideAllCards, 10000);
 }
 
 function restartGame(){
@@ -97,12 +98,24 @@ function restartGame(){
         card[i].classList.remove("show");
         card[i].classList.remove("match");
     }
-    //ShuffledCards()
+    startGame();
 }
 
-window.onload = startGame();
+function showAllCards() {
+    for (let i = 0; i < card.length; i++) {
+        card[i].classList.add("open");
+        card[i].classList.add("show");
+    }
+}
 
+function hideAllCards() {
+    for (let i = 0; i < card.length; i++) {
+        card[i].classList.remove("open");
+        card[i].classList.remove("show");
+    }
+}
 
+addClickEventToLists();
 
 
 /*

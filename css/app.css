@@ -107,3 +107,12 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.startButton {
+    float: right;
+    margin-left: 15px;
+    color: white;
+    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+    border: 2px solid #0099CC;
+    border-radius: 6px;
+}
