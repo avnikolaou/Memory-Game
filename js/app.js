@@ -40,10 +40,12 @@ function addClickEventToLists() {
 
 //display the card's symbol (put this functionality in another function that you call from this one)
 function displayCard() {
-    this.classList.toggle("show");
-    this.classList.toggle("open");
-    addCardToOpenCards(this);
-    checkOpenedCards();
+    if (!this.classList.contains("open") && !this.classList.contains("show")) {
+        this.classList.toggle("show");
+        this.classList.toggle("open");
+        addCardToOpenCards(this);
+        checkOpenedCards();
+    }
 }
 
 function addCardToOpenCards(element) {
@@ -71,7 +73,7 @@ function cardsAreSame() {
 
 function cardsAreDifferent() {
     console.log("Different Cards");
-    setTimeout(closeCards, 3000);
+    setTimeout(closeCards, 1500);
     function closeCards() {
         for (let i = 0; i < openedCards.length; i++){
             openedCards[i].classList.toggle("open");
@@ -127,7 +129,6 @@ function incrementMoveCounter() {
     counter++;
     document.getElementsByClassName('moves')[0].innerText = counter;
 }
-
 
 addClickEventToLists();
 
