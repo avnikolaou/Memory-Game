@@ -6,6 +6,7 @@ const deck = document.querySelector(".deck");
 let cards = [...card];
 let openedCards = [];
 let counter = 0;
+let stars = document.getElementsByClassName("stars");
 // moves = document.getElementsByClassName('moves')[0].innerText;
 
 
@@ -95,6 +96,7 @@ function ShuffledCards(){
 
 function startGame(){
     document.getElementsByClassName('moves')[0].innerText = 0;
+    resetStars();
     ShuffledCards();
     showAllCards();
     setTimeout(hideAllCards, 10000);
@@ -128,6 +130,21 @@ function hideAllCards() {
 function incrementMoveCounter() {
     counter++;
     document.getElementsByClassName('moves')[0].innerText = counter;
+    checkStars();
+}
+
+function checkStars() {
+    if (counter > 5 && counter < 10) {
+        stars[0].firstElementChild.style.visibility = "collapse";
+    }
+    else if (counter > 10){
+        stars[0].firstElementChild.nextElementSibling.style.visibility = "collapse";
+    }
+}
+
+function resetStars() {
+    stars[0].firstElementChild.style.visibility = "";
+    stars[0].firstElementChild.nextElementSibling.style.visibility = "";
 }
 
 addClickEventToLists();
