@@ -7,7 +7,9 @@ let cards = [...card];
 let openedCards = [];
 let counter = 0;
 let stars = document.getElementsByClassName("stars");
-// moves = document.getElementsByClassName('moves')[0].innerText;
+let second = 1, minute = 0;
+let timer = document.querySelector(".timer");
+let interval;
 
 
 /*
@@ -103,6 +105,7 @@ function startGame(){
     ShuffledCards();
     showAllCards();
     setTimeout(hideAllCards, 10000);
+    startTimer();
 }
 
 function restartGame(){
@@ -112,6 +115,7 @@ function restartGame(){
         card[i].classList.remove("show");
         card[i].classList.remove("match");
     }
+    resetTimer();
     startGame();
 }
 
@@ -148,6 +152,28 @@ function checkStars() {
 function resetStars() {
     stars[0].firstElementChild.style.visibility = "";
     stars[0].firstElementChild.nextElementSibling.style.visibility = "";
+}
+
+
+function startTimer(){
+    interval = setInterval(function(){
+        timer.innerHTML = minute + " Min " + second + " Sec";
+        second++;
+        if(second === 60){
+            minute++;
+            second=0;
+        }
+        if(minute === 60){
+            hour++;
+            minute = 0;
+        }
+    },1000);
+}
+
+function resetTimer() {
+    clearInterval(interval);
+    second = 1; minute = 0;
+    timer.innerHTML = minute + " Min " + 0 + " Sec";
 }
 
 addClickEventToLists();
