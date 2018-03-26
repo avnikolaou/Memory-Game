@@ -10,6 +10,8 @@ let stars = document.getElementsByClassName("stars");
 let second = 1, minute = 0;
 let timer = document.querySelector(".timer");
 let interval;
+let timeLeft = 9;
+let reverseInterval;
 
 
 /*
@@ -104,8 +106,12 @@ function startGame(){
     resetStars();
     ShuffledCards();
     showAllCards();
+    countDown();
     setTimeout(hideAllCards, 10000);
-    startTimer();
+    setTimeout(function() {
+        startTimer();
+    }, 10000);
+
 }
 
 function restartGame(){
@@ -154,6 +160,14 @@ function resetStars() {
     stars[0].firstElementChild.nextElementSibling.style.visibility = "";
 }
 
+function countDown() {
+    reverseInterval = setInterval(function(){
+        timer.innerHTML = 0 + " Min " + timeLeft + " Sec";
+        timeLeft--;
+        if(timeLeft < 0)
+            clearInterval(reverseInterval);
+    }, 1000);
+}
 
 function startTimer(){
     interval = setInterval(function(){
@@ -167,12 +181,13 @@ function startTimer(){
             hour++;
             minute = 0;
         }
-    },1000);
+    }, 1000);
 }
 
 function resetTimer() {
+    clearInterval(reverseInterval);
     clearInterval(interval);
-    second = 1; minute = 0;
+    second = 1; minute = 0; timeLeft = 9;
     timer.innerHTML = minute + " Min " + 0 + " Sec";
 }
 
