@@ -42,10 +42,13 @@ function addClickEventToLists() {
 //display the card's symbol (put this functionality in another function that you call from this one)
 function displayCard() {
     if (!this.classList.contains("open") && !this.classList.contains("show")) {
-        this.classList.toggle("show");
-        this.classList.toggle("open");
-        addCardToOpenCards(this);
-        checkOpenedCards();
+        if (openedCards.length !== 2){
+            this.classList.toggle("show");
+            this.classList.toggle("open");
+            addCardToOpenCards(this);
+            checkOpenedCards();
+        }
+
     }
 }
 
