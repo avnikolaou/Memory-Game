@@ -1,6 +1,3 @@
-/*
- * Create a list that holds all of your cards
- */
 const card = document.getElementsByClassName("card");
 const deck = document.querySelector(".deck");
 let cards = [...card];
@@ -15,14 +12,6 @@ let reverseInterval;
 let matchedCards = 0;
 let modal = document.querySelector(".modal");
 let playAgainButton = document.querySelector(".playAgain");
-
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -41,7 +30,7 @@ function shuffle(array) {
 
 //set up the event listener for a card. If a card is clicked:
 function addListeners() {
-    playAgainButton.addEventListener("click", restartGame);
+    playAgainButton.addEventListener("click", resetGame);
     window.addEventListener("click", windowOnClick);
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click",  displayCard)
@@ -120,16 +109,17 @@ function startGame(){
     }, 10000);
 }
 
-function restartGame(){
-    movesCounter = 0;
+function resetGame(){
     for (let i = 0; i < card.length; i++) {
         card[i].classList.remove("open");
         card[i].classList.remove("show");
         card[i].classList.remove("match");
     }
     modal.classList.remove("show-modal");
+    movesCounter = 0;
+    matchedCards = 0;
     resetTimer();
-    startGame();
+    resetStars();
 }
 
 function showAllCards() {
@@ -144,6 +134,7 @@ function hideAllCards() {
     for (let i = 0; i < card.length; i++) {
         card[i].classList.remove("open");
         card[i].classList.remove("show");
+        card[i].classList.remove("match");
     }
 }
 
@@ -216,6 +207,7 @@ function toggleModal() {
 function windowOnClick(event) {
     if (event.target === modal) {
         toggleModal();
+        hideAllCards();
     }
 }
 
