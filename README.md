@@ -7,11 +7,10 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+1. Open the [game] (https://avnikolaou.github.io/Memory-Game/) into your browser.
+1. Click on the 'Start' button. You will be given some seconds to memorize the cards.
+1. Clck on a card to reveal it.
+1. Try match all cards as fast as possible.
 
 ## Contributing
 
