@@ -113,6 +113,7 @@ function resetGame() {
     matchedCards = 0;
     resetTimer();
     resetStars();
+    resetMoves();
 }
 
 function showAllCards() {
@@ -137,12 +138,16 @@ function incrementMoveCounter() {
     checkStars();
 }
 
+function resetMoves() {
+    document.getElementsByClassName('moves')[0].innerText = 0;
+}
+
 //Star rating system
 function checkStars() {
-    if (movesCounter > 5 && movesCounter < 10) {
+    if (movesCounter > 9 && movesCounter < 13) {
         stars[0].firstElementChild.style.visibility = "collapse";
     }
-    else if (movesCounter > 10) {
+    else if (movesCounter > 13) {
         stars[0].firstElementChild.nextElementSibling.style.visibility = "collapse";
     }
 }
