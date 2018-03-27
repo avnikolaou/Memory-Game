@@ -5,13 +5,16 @@ const card = document.getElementsByClassName("card");
 const deck = document.querySelector(".deck");
 let cards = [...card];
 let openedCards = [];
-let counter = 0;
+let movesCounter = 0;
 let stars = document.getElementsByClassName("stars");
 let second = 1, minute = 0;
 let timer = document.querySelector(".timer");
 let interval;
 let timeLeft = 9;
 let reverseInterval;
+let matchedCards = 0;
+let modal = document.querySelector(".modal");
+let playAgainButton = document.querySelector(".playAgain");
 
 
 /*
@@ -37,7 +40,9 @@ function shuffle(array) {
 }
 
 //set up the event listener for a card. If a card is clicked:
-function addClickEventToLists() {
+function addListeners() {
+    playAgainButton.addEventListener("click", restartGame);
+    window.addEventListener("click", windowOnClick);
     for (let i = 0; i < card.length; i++) {
         card[i].addEventListener("click",  displayCard)
         }
@@ -52,7 +57,6 @@ function displayCard() {
             addCardToOpenCards(this);
             checkOpenedCards();
         }
-
     }
 }
 
@@ -77,6 +81,9 @@ function cardsAreSame() {
         openedCards[i].classList.toggle("match");
     }
     openedCards = [];
+    incrementMoveCounter();
+    matchedCards++;
+    endGame();
 }
 
 function cardsAreDifferent() {
@@ -111,16 +118,16 @@ function startGame(){
     setTimeout(function() {
         startTimer();
     }, 10000);
-
 }
 
 function restartGame(){
-    counter = 0;
+    movesCounter = 0;
     for (let i = 0; i < card.length; i++) {
         card[i].classList.remove("open");
         card[i].classList.remove("show");
         card[i].classList.remove("match");
     }
+    modal.classList.remove("show-modal");
     resetTimer();
     startGame();
 }
@@ -141,16 +148,16 @@ function hideAllCards() {
 }
 
 function incrementMoveCounter() {
-    counter++;
-    document.getElementsByClassName('moves')[0].innerText = counter;
+    movesCounter++;
+    document.getElementsByClassName('moves')[0].innerText = movesCounter;
     checkStars();
 }
 
 function checkStars() {
-    if (counter > 5 && counter < 10) {
+    if (movesCounter > 5 && movesCounter < 10) {
         stars[0].firstElementChild.style.visibility = "collapse";
     }
-    else if (counter > 10){
+    else if (movesCounter > 10){
         stars[0].firstElementChild.nextElementSibling.style.visibility = "collapse";
     }
 }
@@ -162,7 +169,7 @@ function resetStars() {
 
 function countDown() {
     reverseInterval = setInterval(function(){
-        timer.innerHTML = 0 + " Min " + timeLeft + " Sec";
+        timer.innerHTML = 0 + " Mins " + timeLeft + " Secs";
         timeLeft--;
         if(timeLeft < 0)
             clearInterval(reverseInterval);
@@ -171,7 +178,7 @@ function countDown() {
 
 function startTimer(){
     interval = setInterval(function(){
-        timer.innerHTML = minute + " Min " + second + " Sec";
+        timer.innerHTML = minute + " Mins " + second + " Secs";
         second++;
         if(second === 60){
             minute++;
@@ -188,19 +195,28 @@ function resetTimer() {
     clearInterval(reverseInterval);
     clearInterval(interval);
     second = 1; minute = 0; timeLeft = 9;
-    timer.innerHTML = minute + " Min " + 0 + " Sec";
+    timer.innerHTML = minute + " Mins " + 0 + " Secs";
 }
 
-addClickEventToLists();
+function endGame() {
+    if (matchedCards === 8){
+        clearInterval(interval);
+        document.querySelector(".modalTimer").innerText = "Completed in " + timer.innerHTML;
+        document.querySelector(".modalMoves").innerText = "Moves: " + movesCounter;
+        document.querySelector(".modalStars").innerHTML = document.querySelector(".stars").innerHTML;
+        matchedCards = 0;
+        toggleModal();
+    }
+}
 
+function toggleModal() {
+    modal.classList.toggle("show-modal");
+}
 
-/*
- * DONE set up the event listener for a card. If a card is clicked:
- *  DONE - display the card's symbol (put this functionality in another function that you call from this one)
- *  DONE - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  DONE - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+function windowOnClick(event) {
+    if (event.target === modal) {
+        toggleModal();
+    }
+}
+
+addListeners();
