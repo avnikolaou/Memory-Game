@@ -1,5 +1,7 @@
 # Memory Game Project
 
+The Memory Game Project is the 3rd project of the Udacity Front End Nanodegree Progam. It is a complete browser-based card matching game (also known as Concentration).
+
 ## Table of Contents
 
 * [Instructions](#instructions)
