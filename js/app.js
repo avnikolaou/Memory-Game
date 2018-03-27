@@ -28,7 +28,7 @@ function shuffle(array) {
     return array;
 }
 
-//set up the event listener for a card. If a card is clicked:
+// Adding Event Listeners
 function addListeners() {
     playAgainButton.addEventListener("click", resetGame);
     window.addEventListener("click", windowOnClick);
@@ -37,10 +37,10 @@ function addListeners() {
         }
     }
 
-//display the card's symbol (put this functionality in another function that you call from this one)
+// Basic functionality
 function displayCard() {
     if (!this.classList.contains("open") && !this.classList.contains("show")) {
-        if (openedCards.length !== 2){
+        if (openedCards.length !== 2) {
             this.classList.toggle("show");
             this.classList.toggle("open");
             addCardToOpenCards(this);
@@ -54,9 +54,8 @@ function addCardToOpenCards(element) {
 }
 
 function checkOpenedCards() {
-    console.log("length: " + openedCards.length);
     if (openedCards.length === 2) {
-        if(openedCards[0].firstElementChild.className === openedCards[1].firstElementChild.className){
+        if(openedCards[0].firstElementChild.className === openedCards[1].firstElementChild.className) {
             cardsAreSame();
         } else {
             cardsAreDifferent();
@@ -65,8 +64,7 @@ function checkOpenedCards() {
 }
 
 function cardsAreSame() {
-    console.log("Same Cards");
-    for (let i = 0; i < openedCards.length; i++){
+    for (let i = 0; i < openedCards.length; i++) {
         openedCards[i].classList.toggle("match");
     }
     openedCards = [];
@@ -76,10 +74,9 @@ function cardsAreSame() {
 }
 
 function cardsAreDifferent() {
-    console.log("Different Cards");
     setTimeout(closeCards, 1500);
     function closeCards() {
-        for (let i = 0; i < openedCards.length; i++){
+        for (let i = 0; i < openedCards.length; i++) {
             openedCards[i].classList.toggle("open");
             openedCards[i].classList.toggle("show");
         }
@@ -88,16 +85,16 @@ function cardsAreDifferent() {
     incrementMoveCounter();
 }
 
-function ShuffledCards(){
+function ShuffledCards() {
     let shuffledCards = shuffle(cards);
-    for (let i= 0; i < shuffledCards.length; i++){
+    for (let i= 0; i < shuffledCards.length; i++) {
         [].forEach.call(shuffledCards, function(item){
             deck.appendChild(item);
         });
     }
 }
 
-function startGame(){
+function startGame() {
     document.getElementsByClassName('moves')[0].innerText = 0;
     resetStars();
     ShuffledCards();
@@ -109,12 +106,8 @@ function startGame(){
     }, 10000);
 }
 
-function resetGame(){
-    for (let i = 0; i < card.length; i++) {
-        card[i].classList.remove("open");
-        card[i].classList.remove("show");
-        card[i].classList.remove("match");
-    }
+function resetGame() {
+    hideAllCards();
     modal.classList.remove("show-modal");
     movesCounter = 0;
     matchedCards = 0;
@@ -144,11 +137,12 @@ function incrementMoveCounter() {
     checkStars();
 }
 
+//Star rating system
 function checkStars() {
     if (movesCounter > 5 && movesCounter < 10) {
         stars[0].firstElementChild.style.visibility = "collapse";
     }
-    else if (movesCounter > 10){
+    else if (movesCounter > 10) {
         stars[0].firstElementChild.nextElementSibling.style.visibility = "collapse";
     }
 }
@@ -158,27 +152,28 @@ function resetStars() {
     stars[0].firstElementChild.nextElementSibling.style.visibility = "";
 }
 
+// Timer and countdown timer
+function startTimer() {
+    interval = setInterval(function() {
+        timer.innerHTML = minute + " Mins " + second + " Secs";
+        second++;
+        if(second === 60) {
+            minute++;
+            second=0;
+        }
+        if(minute === 60) {
+            hour++;
+            minute = 0;
+        }
+    }, 1000);
+}
+
 function countDown() {
-    reverseInterval = setInterval(function(){
+    reverseInterval = setInterval(function() {
         timer.innerHTML = 0 + " Mins " + timeLeft + " Secs";
         timeLeft--;
         if(timeLeft < 0)
             clearInterval(reverseInterval);
-    }, 1000);
-}
-
-function startTimer(){
-    interval = setInterval(function(){
-        timer.innerHTML = minute + " Mins " + second + " Secs";
-        second++;
-        if(second === 60){
-            minute++;
-            second=0;
-        }
-        if(minute === 60){
-            hour++;
-            minute = 0;
-        }
     }, 1000);
 }
 
@@ -189,8 +184,9 @@ function resetTimer() {
     timer.innerHTML = minute + " Mins " + 0 + " Secs";
 }
 
+// End-game Modal
 function endGame() {
-    if (matchedCards === 8){
+    if (matchedCards === 8) {
         clearInterval(interval);
         document.querySelector(".modalTimer").innerText = "Completed in " + timer.innerHTML;
         document.querySelector(".modalMoves").innerText = "Moves: " + movesCounter;
