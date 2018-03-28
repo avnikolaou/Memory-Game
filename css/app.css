@@ -172,3 +172,71 @@ li {
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }
+
+@media screen and (max-width: 700px) {
+    .deck {
+        width: 55%;
+    }
+
+    .score-panel {
+        width: 80%;
+    }
+
+    .score-panel .stars {
+        padding-left: 50px;
+    }
+
+    .deck .card {
+        height: 4rem;
+        width: 4rem;
+    }
+
+    .deck {
+        min-height: 600px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .deck .card {
+        height: 3.5rem;
+        width: 3.5rem;
+    }
+}
+
+@media screen and (max-width: 530px) {
+    .deck .card {
+        height: 3.1rem;
+        width: 3.1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .deck {
+        width: 60%;
+    }
+
+    .score-panel {
+        width: 60%;
+    }
+
+    .score-panel .stars {
+        padding-left: 50px;
+    }
+
+    .deck .card {
+        height: 3.2rem;
+        width: 3.2rem;
+    }
+
+    .deck {
+        min-height: 500px;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+}
